@@ -1,0 +1,45 @@
+{
+  "name": "node-sniffer",
+  "version": "1.0.0",
+  "private": false,
+  "description": "Local runtime activity viewer for Node.js scripts",
+  "license": "MIT",
+  "main": "main.cjs",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --win portable"
+  },
+  "devDependencies": {
+    "electron": "^39.0.0",
+    "electron-builder": "^26.0.12"
+  },
+  "build": {
+    "appId": "com.nodesniffer.app",
+    "productName": "Node Sniffer",
+    "asar": true,
+    "files": [
+      "main.cjs",
+      "preload.cjs",
+      "renderer.js",
+      "index.html",
+      "styles.css",
+      "sniffer-mark.png",
+      "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": "trace-agent.cjs",
+        "to": "trace-agent.cjs"
+      },
+      {
+        "from": "sniffer.ico",
+        "to": "sniffer.ico"
+      }
+    ],
+    "win": {
+      "icon": "sniffer.ico",
+      "target": ["portable"]
+    },
+    "artifactName": "Node Sniffer.${ext}"
+  }
+}

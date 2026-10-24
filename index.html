@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; style-src 'self'; script-src 'self'; img-src 'self' data:"
+    >
+    <title>Node Sniffer</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand-lockup">
+          <img class="brand-mark" src="sniffer-mark.svg" alt="Node Sniffer logo">
+          <div>
+            <div class="brand-name">NODE</div>
+            <div class="brand-subtitle">SNIFFER</div>
+          </div>
+        </div>
+
+        <div class="sidebar-label">TRACE CHANNELS</div>
+        <nav class="filters" aria-label="Filter events">
+          <button class="filter active" data-filter="all"><span>All events</span><b id="count-all">0</b></button>
+          <button class="filter" data-filter="lifecycle"><span>Lifecycle</span><b id="count-lifecycle">0</b></button>
+          <button class="filter" data-filter="console"><span>Console</span><b id="count-console">0</b></button>
+          <button class="filter" data-filter="file"><span>Files</span><b id="count-file">0</b></button>
+          <button class="filter" data-filter="network"><span>Network</span><b id="count-network">0</b></button>
+          <button class="filter" data-filter="process"><span>Processes</span><b id="count-process">0</b></button>
+          <button class="filter" data-filter="error"><span>Errors</span><b id="count-error">0</b></button>
+          <button class="filter" data-filter="output"><span>Program output</span><b id="count-output">0</b></button>
+        </nav>
+
+        <div class="sidebar-bottom">
+          <div class="runtime-card">
+            <span class="runtime-indicator" id="runtime-indicator"></span>
+            <div><strong id="runtime-label">Ready</strong><small id="runtime-detail">No script running</small></div>
+          </div>
+          <div class="privacy-note">Only scripts you start are monitored. Console output may contain sensitive data; file contents and HTTP headers are not read directly.</div>
+        </div>
+      </aside>
+
+      <main class="workspace">
+        <header class="topbar">
+          <div>
+            <div class="eyebrow">LOCAL RUNTIME MONITOR</div>
+            <h1>Node.js Trace</h1>
+          </div>
+          <div class="top-actions">
+            <button class="button secondary" id="processes-button">Running processes</button>
+            <button class="button secondary" id="export-button" disabled>Export JSON</button>
+            <button class="button danger" id="clear-button">Clear</button>
+          </div>
+        </header>
+
+        <section class="launch-panel" aria-label="Start a script">
+          <div class="script-row">
+            <div class="script-field">
+              <label for="script-path">NODE SCRIPT</label>
+              <div class="input-with-button">
+                <input id="script-path" type="text" placeholder="Choose a script (.js, .cjs, .mjs)" readonly>
+                <button class="button browse" id="script-button">Browse</button>
+              </div>
+            </div>
+            <div class="start-control">
+              <button class="button primary" id="start-button" disabled>Start trace</button>
+              <button class="button stop" id="stop-button" disabled>Stop</button>
+            </div>
+          </div>
+          <div class="options-row">
+            <label class="node-field"><span>NODE.EXE</span><input id="node-path" type="text" value="node" spellcheck="false"><button class="text-button" id="node-button">Choose path</button></label>
+            <label class="args-field"><span>SCRIPT ARGUMENTS</span><input id="script-args" type="text" placeholder='e.g. --port 3000 or "text with spaces"'></label>
+            <span class="cwd-hint" id="cwd-hint">Working directory = script folder</span>
+          </div>
+        </section>
+
+        <section class="process-panel" id="process-panel" hidden>
+          <div class="process-heading">
+            <div><h2>Node.js processes</h2><span id="process-summary">Loading local processes</span></div>
+            <button class="button secondary" id="refresh-processes">Refresh</button>
+          </div>
+          <div class="process-table-head"><span>PID</span><span>SCRIPT</span><span>MEMORY</span><span>INSPECTOR</span></div>
+          <div class="process-list" id="process-list" aria-live="polite"></div>
+        </section>
+
+        <section class="feed-section">
+          <div class="feed-heading">
+            <div><h2>Event stream</h2><span id="event-summary">Waiting for a script</span></div>
+            <label class="search-box"><span aria-hidden="true">/</span><input id="search-input" type="search" placeholder="Search events" autocomplete="off"></label>
+          </div>
+          <div class="feed-columns" aria-hidden="true"><span>TIME</span><span>TYPE</span><span>ACTION / DETAILS</span></div>
+          <div class="event-list" id="event-list" aria-live="polite">
+            <div class="empty-state" id="empty-state">
+              <div class="empty-mark" aria-hidden="true">N</div>
+              <strong>No trace started</strong>
+              <span>Choose a script to see its runtime activity here.</span>
+            </div>
+          </div>
+          <footer class="feed-footer"><span id="visible-count">0 events</span><span>Local session <i></i></span></footer>
+        </section>
+      </main>
+    </div>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="renderer.js"></script>
+  </body>
+</html>

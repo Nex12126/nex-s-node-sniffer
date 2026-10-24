@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 48" role="img" aria-label="Node Sniffer icon">
+  <rect width="64" height="48" rx="9" fill="#101614"/>
+  <rect x="4" y="4" width="56" height="40" rx="7" fill="#1A231F" stroke="#31453A"/>
+  <path d="M18 13h12v6H18zm0 10h12v6H18zm16-14h8v26h-8zm-16 18h12v6H18z" fill="#B8F36B"/>
+  <circle cx="44" cy="18" r="6" fill="#81C7EA"/>
+  <path d="M44 25v9" stroke="#81C7EA" stroke-width="3" stroke-linecap="round"/>
+</svg>
