@@ -4,7 +4,8 @@ A lightweight, local-first runtime activity inspector and forensics utility for 
 
 Nex's Node Sniffer monitors, hooks, and logs local execution metrics, filesystem operations, child process spawns, and network requests executed by Node.js scripts in real time without sending data upstream.
 
----
+---<img width="1223" height="817" alt="image" src="https://github.com/user-attachments/assets/75833f5e-784a-4976-b036-be8d4c60282d" />
+
 
 ## Overview
 
